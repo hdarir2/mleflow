@@ -49,3 +49,10 @@ Algorithms for one relay paths networks:
 
 *Error between estimation of each algorithm and ground truth calculated ad plotted in a box plot.
 *Using estimates, generate paths of one relays; compute their bandwidths using circ_bw and compare.
+
+# High-fidelity Shadow-tor Simulation
+- [Modified Shadow-Tor plugin.](https://github.com/ccheng32/shadow-plugin-tor/pull/1)
+- [Modified Tor binary with MLEFlow estimation algorithm.](https://github.com/ccheng32/tor/pull/3)
+- [Configuration files for MLEFlow and Torflow simulation.](https://github.com/ccheng32/shadow-sim-configs)
+
+To build the binaries, follow the [Shadow-Tor simulation installation guide](https://github.com/shadow/shadow-plugin-tor/wiki) and build with the branches listed above. We have crafted serveral configuration files in the third repository listed above. These can be used to run Shadow simulations with MLEFlow and custom Torflow.
