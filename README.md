@@ -55,4 +55,29 @@ Algorithms for one relay paths networks:
 - [Modified Tor binary with MLEFlow estimation algorithm.](https://github.com/ccheng32/tor/pull/3)
 - [Configuration files for MLEFlow and Torflow simulation.](https://github.com/ccheng32/shadow-sim-configs)
 
-To build the binaries, follow the [Shadow-Tor simulation installation guide](https://github.com/shadow/shadow-plugin-tor/wiki) and build with the branches listed above. We have crafted serveral configuration files in the third repository listed above. These can be used to run Shadow simulations with MLEFlow and custom Torflow.
+If you don't have a working Shadow binary yet, download and build the shadow binary following the steps in this [repository](https://github.com/ccheng32/shadow).
+
+Then follow the following steps to modify and build the custom Tor binary and TorFlow plugin:
+
+  1. Download the Tor source code from this [branch](https://github.com/ccheng32/tor/pull/3). The directory name of the source code is `tor`.
+  2. Download the Tor/TorFlow plugin for shadow from this [branch](https://github.com/ccheng32/shadow-plugin-tor/pull/1). 
+  3. Change to the `shadow-plugin-tor` directory, or whatever directory was downloaded in step 2.
+  3. Build and install with the following command:
+     ```
+     ./setup build -c -j64 --tor-prefix ../tor/ && ./setup install 
+     ```
+     Note that the path to the Tor binary source code is `../tor/`. Change that to point to wherever you stored the Tor binary source code.
+
+The test environment configurations can be downloaded from this [repository](https://github.com/ccheng32/shadow-sim-configs). The 3\% network configuration used in the paper is under the `shadowtor-0.03-a-control-2kclients-allrelays-config` directory. The name of the directory can be understood this way:
+  - `0.03` means it's a 3\% network.
+  - `control` means it uses the MLE algorithm.
+  - `2kclients` means the network simulates 2000 clients downloading concurrently.
+  - `allrelays` means the authorities in the network uses the MLE algorithm to predict the capacity of all (guard, middle, exit) relays, as opposed to only estimating the exit relays.
+
+`cd` into the desired config directory and run the following command to start the simulation:
+
+```
+shadow shadow.config.xml > shadow.log
+```
+
+The output of the shadow binary will be stored in `shadow.log`. The outputs of the virtual hosts can be found in `shadow.data/hosts/[HOSTNAME]`.
